@@ -1,8 +1,8 @@
-package url // import "danyelmorales.com/wc-api-gogo/url"
+package url // import "github.com/DanyelMorales/wc-api-go/url"
 
 import (
-	"danyelmorales.com/wc-api-gogo/options"
-	"danyelmorales.com/wc-api-gogo/request"
+	"github.com/DanyelMorales/wc-api-go/options"
+	"github.com/DanyelMorales/wc-api-go/request"
 	URL "net/url"
 	"strings"
 )

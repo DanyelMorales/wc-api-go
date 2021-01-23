@@ -1,7 +1,7 @@
-package client // import "danyelmorales.com/wc-api-gogo/client"
+package client // import "github.com/DanyelMorales/wc-api-go/client"
 
 import (
-	"danyelmorales.com/wc-api-gogo/request"
+	"github.com/DanyelMorales/wc-api-go/request"
 	"net/http"
 	"net/url"
 )

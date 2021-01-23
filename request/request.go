@@ -1,4 +1,4 @@
-package request // import "danyelmorales.com/wc-api-gogo/request"
+package request // import "github.com/DanyelMorales/wc-api-go/request"
 
 import (
 	"encoding/json"

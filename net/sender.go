@@ -2,7 +2,7 @@ package net
 
 import (
 	"bytes"
-	"danyelmorales.com/wc-api-gogo/request"
+	"github.com/DanyelMorales/wc-api-go/request"
 	"io"
 	"net/http"
 )

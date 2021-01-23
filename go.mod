@@ -1,8 +1,7 @@
-module danyelmorales.com/wc-api-gogo
+module github.com/DanyelMorales/wc-api-go
 
 go 1.15
 
 require (
-	github.com/go-resty/resty/v2 v2.4.0
 	github.com/stretchr/testify v1.7.0
 )

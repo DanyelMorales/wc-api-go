@@ -1,4 +1,4 @@
-package options // import "danyelmorales.com/wc-api-gogo/options"
+package options // import "github.com/DanyelMorales/wc-api-go/options"
 
 import (
 	"strconv"

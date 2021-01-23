@@ -1,13 +1,15 @@
 package net
 
 import (
-	"danyelmorales.com/wc-api-gogo/options"
-	"danyelmorales.com/wc-api-gogo/request"
-	"danyelmorales.com/wc-api-gogo/test"
+	"encoding/json"
 	"errors"
+	"github.com/DanyelMorales/wc-api-go/options"
+	"github.com/DanyelMorales/wc-api-go/request"
+	"github.com/DanyelMorales/wc-api-go/test"
 	"github.com/stretchr/testify/assert"
+	"io/ioutil"
+	"log"
 	"net/url"
-	"strings"
 	"testing"
 )
 
@@ -16,7 +18,7 @@ const defaultEndpoint = "products"
 
 type Expected struct {
 	form url.Values
-	body strings.Reader
+	body []byte
 }
 
 func TestRequest(t *testing.T) {
@@ -48,7 +50,12 @@ func TestRequest(t *testing.T) {
 	ba := test.BasicAuthentication{}
 	baseFormValues := url.Values{}
 	baseFormValues.Set("foo", "bar")
-
+	baseJsonValues := request.JsonMap{}
+	baseJsonValues.Set("foo", "bar")
+	baseJsonBytes, err := json.Marshal(baseJsonValues)
+	if err != nil {
+		log.Fatal(err)
+	}
 	requestEnricher := RequestEnricherMock{}
 
 	tests := map[string]struct {
@@ -66,6 +73,7 @@ func TestRequest(t *testing.T) {
 			request: getRequest,
 			expected: Expected{
 				form: nil,
+				body: nil,
 			},
 		},
 		"GET without query, OAuth": {
@@ -95,9 +103,11 @@ func TestRequest(t *testing.T) {
 				Method:   "POST",
 				Endpoint: defaultEndpoint,
 				Values:   baseFormValues,
+				Body:     baseJsonBytes,
 			},
 			expected: Expected{
 				form: baseFormValues,
+				body: baseJsonBytes,
 			},
 		},
 		"PUT with data, OAuth": {
@@ -107,9 +117,11 @@ func TestRequest(t *testing.T) {
 				Method:   "PUT",
 				Endpoint: defaultEndpoint,
 				Values:   baseFormValues,
+				Body:     baseJsonBytes,
 			},
 			expected: Expected{
 				form: baseFormValues,
+				body: baseJsonBytes,
 			},
 		},
 		"GET with data, OAuth": {
@@ -119,9 +131,11 @@ func TestRequest(t *testing.T) {
 				Method:   "GET",
 				Endpoint: defaultEndpoint,
 				Values:   baseFormValues,
+				Body:     baseJsonBytes,
 			},
 			expected: Expected{
 				form: nil,
+				body: baseJsonBytes,
 			},
 		},
 		"Network Error": {
@@ -158,7 +172,11 @@ func TestRequest(t *testing.T) {
 			Assert.Equal(testDetails.client.err, err)
 		}
 		if testDetails.expected.form != nil {
-			Assert.Equal(testDetails.expected.form, request.Form)
+			bodyBytes, err := ioutil.ReadAll(request.Body)
+			if err != nil {
+				log.Fatal(err)
+			}
+			Assert.Equal(testDetails.expected.body, bodyBytes)
 		} else {
 			Assert.Nil(request.Form)
 		}

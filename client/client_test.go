@@ -1,11 +1,13 @@
 package client
 
 import (
-	"danyelmorales.com/wc-api-gogo/request"
-	"danyelmorales.com/wc-api-gogo/test"
+	"encoding/json"
 	"errors"
+	"github.com/DanyelMorales/wc-api-go/request"
+	"github.com/DanyelMorales/wc-api-go/test"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"testing"
@@ -22,13 +24,17 @@ func TestRequest(t *testing.T) {
 
 	Assert := assert.New(t)
 
+	body, err := json.Marshal(jsonParameter)
+	if err != nil {
+		log.Fatal(err)
+	}
 	for _, method := range methods {
 		t.Logf("Test method: %s", method)
 		request := request.Request{
 			Method:   method,
 			Endpoint: "products",
 			Values:   parameters,
-			Body:     jsonParameter,
+			Body:     body,
 		}
 
 		sender := getSenderMock(request, getResponseMock(method))
