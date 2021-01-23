@@ -2,7 +2,7 @@
 
 A Golang wrapper for the WooCommerce REST API. Easily interact with the WooCommerce REST API securely using this library. If using a HTTPS connection this library uses BasicAuth, else it uses Oauth to provide a secure connection to WooCommerce.
 
-[![Build Status](https://travis-ci.com/tgglv/wc-api-go.svg?branch=master)](https://travis-ci.com/tgglv/wc-api-go)
+[![Build Status](https://travis-ci.com/DanyelMorales/wc-api-go.svg?branch=master)](https://travis-ci.com/tgglv/wc-api-go)
 
 ## Installation
 
@@ -73,11 +73,34 @@ func main() {
 
 ## Methods
 
-|    Params    |   Type   |                         Description                          |
-| ------------ | -------- | ------------------------------------------------------------ |
-| `endpoint`   | `string` | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `data`       | `array`  | Only for POST and PUT, data that will be converted to JSON   |
-| `parameters` | `array`  | Only for GET and DELETE, request query string                |
+|    Params    |   Type        |                         Description                          |
+| ------------ | ------------- | ------------------------------------------------------------ |
+| `endpoint`   | `string`      | WooCommerce API endpoint, example: `customers` or `order/12` |
+| `data`       | `byte array`  | Only for POST and PUT, data that will be converted to JSON   |
+| `parameters` | `array`       | Only for GET and DELETE, request query string                |
+
+## Post method
+Post method receives a byte array as argument, it'll be the payload of the request and usually it's type is:
+```go
+map[string][]interface{}
+```
+
+There is another type which represents said type of payload and contains useful method for byte array conversion:
+ ```go
+data := make(request.JsonMap)
+data["update"] = yourPayload
+data.ToByteArray()
+ ```
+
+#### request.JsonMap methods
+|    Method    |   Args                          |                         Description                          |
+| ------------ | ------------------------------- | ------------------------------------------------------------ |
+| `Add`        | `key string, value interface{}` |  Add a new key on existing registry |
+| `Set`        | `key string, value interface{}` |  Create a new key on registry       |
+| `Get`        | `key string`                    |  Return the []interface{} associated to a key |
+| `ToByteArray`| ``                              |  Convert registry to []byte |
+| `Remove`     | `key string`                    |  Remove key and associated data from registry|
+| `RemoveIndex`| `key string, index int`         |  Remove a value from []interface{} associated to a key|
 
 ### GET
 
@@ -88,7 +111,9 @@ c.Get(endpoint, parameters)
 ### POST
 
 ```go
-c.Post(endpoint, data)
+data :=make(request.JsonMap)
+data.Set("create", yourPayloadHere)
+c.Post(endpoint, data.ToByteArray())
 ```
 
 ### PUT
@@ -158,3 +183,4 @@ func main() {
 
 - 2019-04-14 - 1.0.1 - Fix sample integration setup in README.md
 - 2019-01-12 - 1.0.0 - First Release
+- 2021-01-23 - 1.0.1 - Fix post payload issues

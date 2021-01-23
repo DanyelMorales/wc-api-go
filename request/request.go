@@ -15,6 +15,21 @@ type Request struct {
 
 type JsonMap map[string][]interface{}
 
+func (j *JsonMap) Remove(key string) {
+	delete(*j, key)
+}
+func (j *JsonMap) RemoveIndex(key string, index int) {
+	if val := (*j).Get(key); val != nil {
+		container := make([]interface{}, 0)
+		for i, data := range val {
+			if i != index {
+				container = append(container, data)
+			}
+		}
+		(*j)[key] = container
+	}
+}
+
 func (j *JsonMap) Add(key string, value interface{}) {
 	(*j)[key] = append((*j)[key], value)
 }
@@ -23,7 +38,7 @@ func (j *JsonMap) Set(key string, value interface{}) {
 	(*j)[key] = []interface{}{value}
 }
 
-func (j *JsonMap) Get(key string) interface{} {
+func (j *JsonMap) Get(key string) []interface{} {
 	v, ok := (*j)[key]
 	if !ok {
 		return nil
@@ -31,7 +46,7 @@ func (j *JsonMap) Get(key string) interface{} {
 	return v
 }
 
-func (j *JsonMap) ToByte() []byte {
+func (j *JsonMap) ToByteArray() []byte {
 	b, err := json.Marshal(*j)
 	if err != nil {
 		return nil
