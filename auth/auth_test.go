@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/tgglv/wc-api-go/options"
+	"danyelmorales.com/wc-api-gogo/options"
 	"net/http"
 	"testing"
 )

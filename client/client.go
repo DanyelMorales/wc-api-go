@@ -1,7 +1,7 @@
-package client // import "github.com/tgglv/wc-api-go/client"
+package client // import "danyelmorales.com/wc-api-gogo/client"
 
 import (
-	"github.com/tgglv/wc-api-go/request"
+	"danyelmorales.com/wc-api-gogo/request"
 	"net/http"
 	"net/url"
 )
@@ -21,11 +21,11 @@ func (c *Client) Get(endpoint string, parameters url.Values) (*http.Response, er
 }
 
 // Post Method usually creates new instances
-func (c *Client) Post(endpoint string, data url.Values) (*http.Response, error) {
+func (c *Client) Post(endpoint string, data []byte) (*http.Response, error) {
 	return c.sender.Send(request.Request{
 		Method:   "POST",
 		Endpoint: endpoint,
-		Values:   data,
+		Body:     data,
 	})
 }
 

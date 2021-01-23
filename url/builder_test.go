@@ -1,9 +1,9 @@
 package url
 
 import (
+	"danyelmorales.com/wc-api-gogo/options"
+	"danyelmorales.com/wc-api-gogo/request"
 	"github.com/stretchr/testify/assert"
-	"github.com/tgglv/wc-api-go/options"
-	"github.com/tgglv/wc-api-go/request"
 	URL "net/url"
 	"testing"
 )

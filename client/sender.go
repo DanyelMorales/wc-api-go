@@ -1,8 +1,8 @@
-package client // import "github.com/tgglv/wc-api-go/client"
+package client // import "danyelmorales.com/wc-api-gogo/client"
 
 import (
-	"github.com/tgglv/wc-api-go/request"
 	"net/http"
+	"danyelmorales.com/wc-api-gogo/request"
 )
 
 // Sender interface

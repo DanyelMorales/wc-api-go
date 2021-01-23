@@ -1,7 +1,7 @@
 package client
 
 import (
-	"github.com/tgglv/wc-api-go/request"
+	"danyelmorales.com/wc-api-gogo/request"
 	"net/http"
 )
 

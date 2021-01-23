@@ -1,10 +1,10 @@
 package client
 
 import (
+	"danyelmorales.com/wc-api-gogo/request"
+	"danyelmorales.com/wc-api-gogo/test"
 	"errors"
 	"github.com/stretchr/testify/assert"
-	"github.com/tgglv/wc-api-go/request"
-	"github.com/tgglv/wc-api-go/test"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -14,6 +14,9 @@ import (
 func TestRequest(t *testing.T) {
 	parameters := url.Values{}
 	parameters.Set("foo", "bar")
+
+	jsonParameter := request.JsonMap{}
+	jsonParameter.Set("foo", "bar")
 
 	methods := []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 
@@ -25,6 +28,7 @@ func TestRequest(t *testing.T) {
 			Method:   method,
 			Endpoint: "products",
 			Values:   parameters,
+			Body:     jsonParameter,
 		}
 
 		sender := getSenderMock(request, getResponseMock(method))
@@ -56,7 +60,7 @@ func executeRequest(c Client, r *request.Request) (*http.Response, error) {
 	case "GET":
 		return c.Get(r.Endpoint, r.Values)
 	case "POST":
-		return c.Post(r.Endpoint, r.Values)
+		return c.Post(r.Endpoint, r.Body)
 	case "PUT":
 		return c.Put(r.Endpoint, r.Values)
 	case "DELETE":

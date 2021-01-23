@@ -1,4 +1,4 @@
-package auth // import "github.com/tgglv/wc-api-go/auth"
+package auth // import "danyelmorales.com/wc-api-gogo/auth"
 
 import (
 	"crypto/hmac"
@@ -6,7 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"github.com/tgglv/wc-api-go/options"
+	"danyelmorales.com/wc-api-gogo/options"
 	"net/url"
 	"sort"
 	"strings"

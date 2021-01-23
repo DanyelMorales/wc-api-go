@@ -1,10 +1,10 @@
-package client // import "github.com/tgglv/wc-api-go/client"
+package client // import "danyelmorales.com/wc-api-gogo/client"
 
 import (
-	"github.com/tgglv/wc-api-go/auth"
-	"github.com/tgglv/wc-api-go/net"
-	"github.com/tgglv/wc-api-go/options"
-	"github.com/tgglv/wc-api-go/url"
+	"danyelmorales.com/wc-api-gogo/auth"
+	"danyelmorales.com/wc-api-gogo/net"
+	"danyelmorales.com/wc-api-gogo/options"
+	"danyelmorales.com/wc-api-gogo/url"
 	"net/http"
 )
 

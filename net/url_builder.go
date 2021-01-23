@@ -1,7 +1,7 @@
-package net // import "github.com/tgglv/wc-api-go/net"
+package net
 
 import (
-	"github.com/tgglv/wc-api-go/request"
+	"danyelmorales.com/wc-api-gogo/request"
 )
 
 // URLBuilder interface

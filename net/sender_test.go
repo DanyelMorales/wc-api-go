@@ -1,12 +1,13 @@
 package net
 
 import (
+	"danyelmorales.com/wc-api-gogo/options"
+	"danyelmorales.com/wc-api-gogo/request"
+	"danyelmorales.com/wc-api-gogo/test"
 	"errors"
 	"github.com/stretchr/testify/assert"
-	"github.com/tgglv/wc-api-go/options"
-	"github.com/tgglv/wc-api-go/request"
-	"github.com/tgglv/wc-api-go/test"
 	"net/url"
+	"strings"
 	"testing"
 )
 
@@ -15,6 +16,7 @@ const defaultEndpoint = "products"
 
 type Expected struct {
 	form url.Values
+	body strings.Reader
 }
 
 func TestRequest(t *testing.T) {
@@ -155,7 +157,6 @@ func TestRequest(t *testing.T) {
 		if testDetails.client.err != nil {
 			Assert.Equal(testDetails.client.err, err)
 		}
-
 		if testDetails.expected.form != nil {
 			Assert.Equal(testDetails.expected.form, request.Form)
 		} else {
