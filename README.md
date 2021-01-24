@@ -95,8 +95,8 @@ data.ToByteArray()
 #### request.JsonMap methods
 |    Method    |   Args                          |                         Description                          |
 | ------------ | ------------------------------- | ------------------------------------------------------------ |
-| `Add`        | `key string, value interface{}` |  Add a new key on existing registry |
-| `Set`        | `key string, value interface{}` |  Create a new key on registry       |
+| `Add`        | `key string, value interface{}` |  Add an array into a registry associated with a key |
+| `Set`        | `key string, value interface{}` |  Add a value into a registry associated with a key      |
 | `Get`        | `key string`                    |  Return the []interface{} associated to a key |
 | `ToByteArray`| ``                              |  Convert registry to []byte |
 | `Remove`     | `key string`                    |  Remove key and associated data from registry|
@@ -112,7 +112,7 @@ c.Get(endpoint, parameters)
 
 ```go
 data :=make(request.JsonMap)
-data.Set("create", yourPayloadHere)
+data.Add("create", yourPayloadHere)
 c.Post(endpoint, data.ToByteArray())
 ```
 

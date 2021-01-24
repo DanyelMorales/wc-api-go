@@ -30,12 +30,15 @@ func (j *JsonMap) RemoveIndex(key string, index int) {
 	}
 }
 
-func (j *JsonMap) Add(key string, value interface{}) {
-	(*j)[key] = append((*j)[key], value)
+func (j *JsonMap) Add(key string, value []interface{}) {
+	(*j)[key] = value
 }
 
 func (j *JsonMap) Set(key string, value interface{}) {
-	(*j)[key] = []interface{}{value}
+	if (*j)[key] == nil {
+		(*j)[key] = make([]interface{}, 0)
+	}
+	(*j)[key] = append((*j)[key], value)
 }
 
 func (j *JsonMap) Get(key string) []interface{} {
